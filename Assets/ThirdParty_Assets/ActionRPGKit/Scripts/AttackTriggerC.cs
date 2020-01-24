@@ -151,17 +151,17 @@ public class AttackTriggerC : MonoBehaviour {
 			controller = GetComponent<CharacterController>();
 		}
 
-		if(MaincamPrefab){
-			GameObject[] cam = GameObject.FindGameObjectsWithTag("MainCamera"); 
-			foreach(GameObject cam2 in cam){ 
-				if(cam2){
-					Destroy(cam2.gameObject);
-				}
-			}
-			GameObject newCam = GameObject.FindWithTag("MainCamera");
-			newCam = Instantiate(MaincamPrefab, transform.position , transform.rotation) as GameObject;
-			Maincam = newCam.transform;
-		}
+		//if(MaincamPrefab){
+		//	GameObject[] cam = GameObject.FindGameObjectsWithTag("MainCamera"); 
+		//	foreach(GameObject cam2 in cam){ 
+		//		if(cam2){
+			//		Destroy(cam2.gameObject);
+			//	}
+			//}
+			//GameObject newCam = GameObject.FindWithTag("MainCamera");
+			//newCam = Instantiate(MaincamPrefab, transform.position , transform.rotation) as GameObject;
+			//Maincam = newCam.transform;
+		//}
 
 		// Set Target to ARPG Camera
 		if(Maincam && Maincam.GetComponent<ARPGcameraC>()){
@@ -241,9 +241,9 @@ public class AttackTriggerC : MonoBehaviour {
 			}
 		}
 		//if(Maincam && Maincam.GetComponent<ARPGcameraC>()){
-		if(aimingType == AimType.Raycast){
-			Aiming();
-		}
+		//if(aimingType == AimType.Raycast){
+			//Aiming();
+		//commented out}
 		//}
 		//----------------------------
 		if(notActive){
@@ -741,7 +741,7 @@ public class AttackTriggerC : MonoBehaviour {
 		}
 	}
 
-	void Aiming(){
+	/*void Aiming(){
 		Ray ray = Camera.main.ViewportPointToRay (new Vector3(0.5f,0.5f,0.0f));
 		// Do a raycast
 		RaycastHit hit;
@@ -754,6 +754,7 @@ public class AttackTriggerC : MonoBehaviour {
 			attackPoint.LookAt(Camera.main.ViewportToWorldPoint(new Vector3(0.52f, 0.54f, 100.0f)));
 		}
 	}
+	*/
 
 	public void GetActivator(GameObject obj , string msg , string btn){
 		actvateObj = obj;
