@@ -13,6 +13,7 @@ TagManager:
   - Minimap
   - Collide
   - SpawnPoint
+  - Terrain
   layers:
   - Default
   - TransparentFX
