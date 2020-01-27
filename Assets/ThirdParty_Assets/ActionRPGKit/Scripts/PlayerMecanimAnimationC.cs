@@ -4,14 +4,16 @@ using System.Collections;
 [RequireComponent(typeof(AttackTriggerC))]
 [RequireComponent(typeof(PlayerInputControllerC))]
 [AddComponentMenu("Action-RPG Kit(C#)/Create Player(Mecanim)")]
+[RequireComponent(typeof(ClickBasedMove))]
 
 public class PlayerMecanimAnimationC : MonoBehaviour {
-	
+
 	private GameObject player;
 	private GameObject mainModel;
 	public Animator animator;
 	private CharacterController controller;
-	
+	private ClickBasedMove clickController;
+
 	public string moveHorizontalState = "horizontal";
 	public string moveVerticalState = "vertical";
 	public string jumpState = "jump";
@@ -23,58 +25,46 @@ public class PlayerMecanimAnimationC : MonoBehaviour {
 	private float moveHorizontal;
 	private float moveVertical;
 	private StatusC stat;
-	
-	void Start(){
-		if(!player){
+
+	void Start() {
+		if (!player) {
 			player = this.gameObject;
 		}
 		mainModel = GetComponent<AttackTriggerC>().mainModel;
-		if(!mainModel){
+		if (!mainModel) {
 			mainModel = this.gameObject;
 		}
-		if(!animator){
+		if (!animator) {
 			animator = mainModel.GetComponent<Animator>();
 		}
+		clickController = player.GetComponent<ClickBasedMove>();
 		controller = player.GetComponent<CharacterController>();
 		GetComponent<AttackTriggerC>().useMecanim = true;
 		stat = GetComponent<StatusC>();
 	}
-	
-	void Update (){
+
+	void Update() {
 		//Set attacking variable = onAttacking in AttackTrigger
 		attacking = GetComponent<AttackTriggerC>().onAttacking;
 		flinch = GetComponent<AttackTriggerC>().flinch;
 
-		if(attacking || flinch || GlobalConditionC.freezeAll || GlobalConditionC.freezePlayer || stat.dodge){
+		if (attacking || flinch || GlobalConditionC.freezeAll || GlobalConditionC.freezePlayer || stat.dodge) {
 			return;
 		}
-		
-		if((controller.collisionFlags & CollisionFlags.Below) != 0){
-			if(joyStick){
-				if(Input.GetButton("Horizontal") || Input.GetButton("Vertical")){
-					moveHorizontal = Input.GetAxis("Horizontal");
-					moveVertical = Input.GetAxis("Vertical");
-				}else{
-					moveHorizontal = joyStick.position.x;
-					moveVertical = joyStick.position.y;
-				}
-			}else{
-				moveHorizontal = Input.GetAxis("Horizontal");
-				moveVertical = Input.GetAxis("Vertical");
-			}
-			animator.SetFloat(moveHorizontalState , moveHorizontal);
-			animator.SetFloat(moveVerticalState , moveVertical);
-			if(jumping){
-				jumping = false;
-				animator.SetBool(jumpState , jumping);
-				//animator.StopPlayback(jumpState);
-			}
-		}else{
-			jumping = true;
-			animator.SetBool(jumpState , jumping);
-			//animator.Play(jumpState);
+
+		if (clickController.isMoving)
+		{
+			animator.SetFloat(moveVerticalState, 0.3f);
+			PlayAnim("run");
 		}
+		else animator.SetFloat(moveVerticalState, 0.0f);
+
 	}
+
+	/*--Animation list:
+	 * "run" = forward run
+	 * 
+	 */
 	
 	public void AttackAnimation(string anim){
 		animator.SetBool(jumpState , false);

@@ -11,7 +11,7 @@ public class ClickBasedMove : MonoBehaviour
 
     [SerializeField]
     private Camera cam;
-
+    public bool isMoving;
     private NavMeshAgent pathFinderAgent;
 
     Ray theRay;
@@ -26,20 +26,23 @@ public class ClickBasedMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetMouseButton(0))
         {
             Debug.Log("you clicked");
 
             theRay = cam.ScreenPointToRay(Input.mousePosition);
 
-            if(Physics.Raycast(theRay, out rayCastInfo))
+            if (Physics.Raycast(theRay, out rayCastInfo))
             {
                 Debug.Log("ray was casted");
 
                 pathFinderAgent.SetDestination(rayCastInfo.point);
 
+                isMoving = true;
                 Debug.Log(pathFinderAgent.steeringTarget);
             }
+
         }
+        if (Input.GetKeyUp(KeyCode.Mouse0)) { isMoving = false; }
     }
 }
