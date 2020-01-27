@@ -55,7 +55,7 @@ public class PlayerMecanimAnimationC : MonoBehaviour {
 		if (clickController.isMoving)
 		{
 			animator.SetFloat(moveVerticalState, 0.3f);
-			PlayAnim("run");
+			//PlayAnim("run");
 		}
 		else animator.SetFloat(moveVerticalState, 0.0f);
 

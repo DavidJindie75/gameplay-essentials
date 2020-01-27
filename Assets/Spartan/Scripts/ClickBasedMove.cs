@@ -43,6 +43,6 @@ public class ClickBasedMove : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyUp(KeyCode.Mouse0)) { isMoving = false; }
+        if (pathFinderAgent.remainingDistance <= pathFinderAgent.stoppingDistance) { isMoving = false; }
     }
 }
