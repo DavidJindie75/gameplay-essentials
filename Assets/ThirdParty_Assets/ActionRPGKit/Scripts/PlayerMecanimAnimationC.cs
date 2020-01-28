@@ -54,15 +54,17 @@ public class PlayerMecanimAnimationC : MonoBehaviour {
 
 		if (clickController.isMoving)
 		{
+			//3 being run,  when we get to deciding if the player should be running or walking depending on clicked space we can change to lower values like 0.1-0.2 for walk
 			animator.SetFloat(moveVerticalState, 0.3f);
-			//PlayAnim("run");
 		}
 		else animator.SetFloat(moveVerticalState, 0.0f);
 
 	}
 
 	/*--Animation list:
-	 * "run" = forward run
+	 * "run" 
+	 * "idle"
+	 * etc..
 	 * 
 	 */
 	
