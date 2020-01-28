@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964127, b: 0.57481724, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -126,45 +126,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1029524994}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &459475755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459475754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6820eabfacc1cc34d8ee16eb1aa14292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveableground:
-    serializedVersion: 2
-    m_Bits: 512
-  cam: {fileID: 593892581}
-  isMoving: 0
---- !u!195 &459475774
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459475754}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.05
-  m_Speed: 6
-  m_Acceleration: 999
-  avoidancePriority: 50
-  m_AngularSpeed: 999
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.25
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &593892578 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4659681482775149063, guid: 9c61ac7e4e04f304dbd154597c64bcc1,
@@ -281,7 +242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.8633928
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
       propertyPath: m_LocalPosition.y
@@ -327,22 +288,10 @@ PrefabInstance:
       propertyPath: MaincamPrefab
       value: 
       objectReference: {fileID: 593892578}
-    - target: {fileID: 11400010, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
-      propertyPath: whileAttack
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400010, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
-      propertyPath: aimingType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400010, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100058, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 459475755, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 593892581}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
 --- !u!1 &1689594287
@@ -452,17 +401,17 @@ PrefabInstance:
     - target: {fileID: 4659681482775149066, guid: 9c61ac7e4e04f304dbd154597c64bcc1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.049999833
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4659681482775149066, guid: 9c61ac7e4e04f304dbd154597c64bcc1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.48
+      value: 13.31
       objectReference: {fileID: 0}
     - target: {fileID: 4659681482775149066, guid: 9c61ac7e4e04f304dbd154597c64bcc1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.45
+      value: -12.48
       objectReference: {fileID: 0}
     - target: {fileID: 4659681482775149066, guid: 9c61ac7e4e04f304dbd154597c64bcc1,
         type: 3}
@@ -472,12 +421,12 @@ PrefabInstance:
     - target: {fileID: 4659681482775149066, guid: 9c61ac7e4e04f304dbd154597c64bcc1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4659681482775149066, guid: 9c61ac7e4e04f304dbd154597c64bcc1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4659681482775149066, guid: 9c61ac7e4e04f304dbd154597c64bcc1,
         type: 3}
@@ -523,6 +472,6 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 593892578}
+      objectReference: {fileID: 459475754}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c61ac7e4e04f304dbd154597c64bcc1, type: 3}
