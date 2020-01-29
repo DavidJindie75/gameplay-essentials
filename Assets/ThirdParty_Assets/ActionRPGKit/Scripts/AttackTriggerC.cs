@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.AI;
 
 [RequireComponent(typeof (StatusC))]
 [RequireComponent(typeof (UiMasterC))]
@@ -39,6 +40,8 @@ public class AttackTriggerC : MonoBehaviour {
 
 	private bool atkDelay = false;
 	public bool freeze = false;
+
+	public bool isAiming=false;
 
 	public float attackSpeed = 0.15f;
 	private float nextFire = 0.0f;
@@ -212,7 +215,34 @@ public class AttackTriggerC : MonoBehaviour {
 		}
 	}
 
+	void FixedUpdate()
+	{
+		//if holding the rotate key
+		if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetButtonDown("Left Control"))
+		{
+			isAiming = true;
+		}
+		if(Input.GetKeyUp(KeyCode.LeftControl) || Input.GetButtonUp("Left Control")) { isAiming = false; }
+	}
+
 	void Update(){
+		if(isAiming)
+		{
+			//stop movement
+			GetComponent<ClickBasedMove>().StopMoving();
+
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			Plane plane = new Plane(Vector3.up, Vector3.zero);
+			float distance;
+			if (plane.Raycast(ray, out distance))
+			{
+				Vector3 target = ray.GetPoint(distance);
+				Vector3 direction = target - transform.position;
+				float rotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+				transform.rotation = Quaternion.Euler(0, rotation, 0);
+			}
+		}
+
 		if(Input.GetKeyDown("e")){
 			Activator();
 		}

@@ -26,23 +26,30 @@ public class ClickBasedMove : MonoBehaviour
 
     void FixedUpdate()
     {
+
         if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetMouseButton(0))
         {
-            Debug.Log("you clicked");
+            //Debug.Log("you clicked");
 
             theRay = cam.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(theRay, out rayCastInfo))
             {
-                Debug.Log("ray was casted");
+                //Debug.Log("ray was casted");
 
                 pathFinderAgent.SetDestination(rayCastInfo.point);
 
                 isMoving = true;
-                Debug.Log(pathFinderAgent.steeringTarget);
+                //Debug.Log(pathFinderAgent.steeringTarget);
             }
 
         }
         if (pathFinderAgent.remainingDistance <= pathFinderAgent.stoppingDistance) { isMoving = false; }
+    }
+
+    public void StopMoving()
+    {
+        pathFinderAgent.ResetPath();
+        
     }
 }
