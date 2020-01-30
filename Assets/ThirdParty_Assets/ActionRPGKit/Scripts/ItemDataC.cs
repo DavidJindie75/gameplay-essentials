@@ -30,7 +30,8 @@ public class ItemDataC : MonoBehaviour {
 		public Sprite iconSprite;
 		public Color spriteColor = Color.white;
 		public GameObject model;
-		public bool assignAllWeapon = true;
+        public float distanceToAttack;
+        public bool assignAllWeapon = true;
 		public bool canBlock = false;
 		public string description = "";
 		public string description2 = "";

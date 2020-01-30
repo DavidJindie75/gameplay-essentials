@@ -24,8 +24,10 @@ public class AttackTriggerC : MonoBehaviour {
 	public Transform attackPrefab;
 	public bool notActive = false;
 	public bool useMecanim = false;
+    public float requiredDistanceForAttack;
 
-	[System.Serializable]
+
+    [System.Serializable]
 	public class AtkMecanim{
 		//Enable this if you want to use Set Trigger for Attack Animation instead of Play from Animation's name
 		//Script will send triggerName and combo(int) to Animator Controller
@@ -229,7 +231,7 @@ public class AttackTriggerC : MonoBehaviour {
 		if(isAiming)
 		{
 			//stop movement
-			GetComponent<ClickBasedMove>().StopMoving();
+			NavMeshExtensions.StopMoving(GetComponent< ClickBasedMove>().pathFinderAgent);
 
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			Plane plane = new Plane(Vector3.up, Vector3.zero);
@@ -280,7 +282,10 @@ public class AttackTriggerC : MonoBehaviour {
 			return;
 		}
 		//Normal Trigger
-		if(Input.GetButton("Fire1") && Time.time > nextFire && !isCasting && !mobileMode && !skillAim){
+		if(Input.GetButton("Fire1") && Time.time > nextFire && !isCasting && !mobileMode && !skillAim
+            && GetComponent<ClickBasedMove>().closeToEnemy 
+            && GetComponent<ClickBasedMove>().pathFinderAgent.isStopped)
+        {
 			if(Time.time > (nextFire + 0.5f)){
 				c = 0;
 			}

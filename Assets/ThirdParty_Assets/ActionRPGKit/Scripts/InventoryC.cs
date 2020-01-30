@@ -176,8 +176,10 @@ public class InventoryC : MonoBehaviour {
 			GetComponent<AttackTriggerC>().requireItemId = reqId;
 			GetComponent<AttackTriggerC>().requireItemName = dataItem.usableItem[reqId].itemName;
 			GetComponent<AttackTriggerC>().attackSoundEffect = dataItem.equipment [id].soundEffect;
-			//Update Show Ammo UI
-			if(reqId > 0 && ShowAmmoC.showAmmo){
+            GetComponent<AttackTriggerC>().requiredDistanceForAttack = dataItem.equipment[id].distanceToAttack;
+
+            //Update Show Ammo UI
+            if (reqId > 0 && ShowAmmoC.showAmmo){
 				ShowAmmoC.showAmmo.OnOffShowing(true);
 				int sl = FindItemSlot(reqId);
 				int am = 0;
