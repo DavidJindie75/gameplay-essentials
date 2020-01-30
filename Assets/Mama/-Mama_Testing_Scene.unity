@@ -212,6 +212,99 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &339204735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339204739}
+  - component: {fileID: 339204738}
+  - component: {fileID: 339204737}
+  - component: {fileID: 339204736}
+  m_Layer: 0
+  m_Name: Enemy
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!136 &339204736
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339204735}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &339204737
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339204735}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 4f739caf0cb895044af2e92676e61405, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &339204738
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339204735}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &339204739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339204735}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.01, z: 5.41}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &627768709
 GameObject:
   m_ObjectHideFlags: 0
@@ -2381,18 +2474,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1080783031}
-  - component: {fileID: 1085757743}
   - component: {fileID: 1086363919}
-  - component: {fileID: 1086363933}
   - component: {fileID: 1086363935}
   - component: {fileID: 1086363905}
-  - component: {fileID: 1086363907}
-  - component: {fileID: 1086363909}
   - component: {fileID: 1086363911}
   - component: {fileID: 1086363917}
   - component: {fileID: 1086363931}
   - component: {fileID: 1086363929}
-  - component: {fileID: 1086363927}
   - component: {fileID: 1086363925}
   - component: {fileID: 1086363921}
   - component: {fileID: 1086552701}
@@ -2400,6 +2488,10 @@ GameObject:
   - component: {fileID: 82771312358139287}
   - component: {fileID: 7815322183181756459}
   - component: {fileID: 1080880472}
+  - component: {fileID: 1080880480}
+  - component: {fileID: 1080880478}
+  - component: {fileID: 1080880476}
+  - component: {fileID: 1080880474}
   m_Layer: 0
   m_Name: Heroine
   m_TagString: Player
@@ -2423,6 +2515,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   cam: {fileID: 864816563}
+  isMoving: 0
+  pathFinderAgent: {fileID: 0}
+  enemyTargeted: 0
+  closeToEnemy: 0
+  target: {fileID: 0}
 --- !u!1 &1080880473
 GameObject:
   m_ObjectHideFlags: 0
@@ -2441,6 +2538,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &1080880474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080880471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f47cae1b9ad6849ad95b27da88fa60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runMaxAnimationSpeed: 1
+  backMaxAnimationSpeed: 1
+  sprintAnimationSpeed: 1.5
+  idle: {fileID: 7400002, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  run: {fileID: 7400004, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  right: {fileID: 7400012, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  left: {fileID: 7400010, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  back: {fileID: 7400028, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  jump: {fileID: 7400008, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  jumpUp: {fileID: 7400000, guid: 814e376373ca8a1428e790bf128eef63, type: 3}
+  hurt: {fileID: 7400026, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  doubleJump: {fileID: 7400008, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  joyStick: {fileID: 0}
 --- !u!1 &1080880475
 GameObject:
   m_ObjectHideFlags: 0
@@ -2459,6 +2581,44 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1080880476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080880471}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb5fd39a1e44614bad354beb0ab2a3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unableToMove: 0
+  walkSpeed: 6
+  sprintSpeed: 12
+  canSprint: 1
+  recover: 0
+  dodging: 0
+  staminaGauge: {fileID: 2800000, guid: 02cc7950564aa6343a5b9b944977eb97, type: 3}
+  staminaBorder: {fileID: 2800000, guid: 94334f80d30ce1245a00e4cc1b3d75b5, type: 3}
+  maxStamina: 100
+  stamina: 100
+  recoverStamina: 0
+  doubleJump: 0
+  dodgeRollSetting:
+    canDodgeRoll: 0
+    staminaUse: 25
+    dodgeForward: {fileID: 0}
+    dodgeLeft: {fileID: 0}
+    dodgeRight: {fileID: 0}
+    dodgeBack: {fileID: 0}
+  fallingDamage:
+    enable: 0
+    minSurviveFall: 0.45
+    damageForSeconds: 30
+    surviveHeight: 0.3
+    hitEffect: {fileID: 0}
+  joyStick: {fileID: 0}
 --- !u!1 &1080880477
 GameObject:
   m_ObjectHideFlags: 0
@@ -2475,6 +2635,80 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1080880478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080880471}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2483e1f7e56b00479125f1bbe5aec1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canControl: 1
+  limitVelocityY: 5
+  bounce: 0
+  freezeGravity: 0
+  stability: 0
+  playerLandingAnim: 0
+  useFixedUpdate: 1
+  movement:
+    maxForwardSpeed: 6
+    maxSidewaysSpeed: 6
+    maxBackwardsSpeed: 6
+    slopeSpeedMultiplier:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -90
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 90
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    maxGroundAcceleration: 30
+    maxAirAcceleration: 20
+    gravity: 10
+    maxFallSpeed: 20
+  jumping:
+    enabled: 1
+    baseHeight: 1
+    extraHeight: 4.1
+    perpAmount: 0
+    steepPerpAmount: 0.5
+  movingPlatform:
+    enabled: 1
+    movementTransfer: 2
+  sliding:
+    enabled: 1
+    slidingSpeed: 15
+    sidewaysControl: 1
+    speedControl: 0.4
 --- !u!1 &1080880479
 GameObject:
   m_ObjectHideFlags: 0
@@ -2491,6 +2725,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!143 &1080880480
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080880471}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1081042093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2508,24 +2760,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!143 &1085757743
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080880471}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 0.19
-  m_Radius: 0.04
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!137 &1086087661
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -2702,70 +2936,6 @@ MonoBehaviour:
     width: 280
     height: 385
   useLegacyUi: 0
---- !u!114 &1086363907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080880471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b02b3de3e494fd24fb80dd0e10d6d513, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  runMaxAnimationSpeed: 1.4
-  backMaxAnimationSpeed: -1.4
-  sprintAnimationSpeed: 1.5
-  idle: {fileID: 7400002, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
-  run: {fileID: 7400004, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
-  right: {fileID: 7400012, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
-  left: {fileID: 7400010, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
-  back: {fileID: 7400028, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
-  jump: {fileID: 7400002, guid: 814e376373ca8a1428e790bf128eef63, type: 3}
-  jumpUp: {fileID: 7400000, guid: 814e376373ca8a1428e790bf128eef63, type: 3}
-  hurt: {fileID: 7400026, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
-  doubleJump: {fileID: 7400000, guid: 814e376373ca8a1428e790bf128eef63, type: 3}
-  joyStick: {fileID: 0}
---- !u!114 &1086363909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080880471}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdb5fd39a1e44614bad354beb0ab2a3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unableToMove: 0
-  walkSpeed: 6
-  sprintSpeed: 12
-  canSprint: 1
-  recover: 0
-  dodging: 0
-  staminaGauge: {fileID: 2800000, guid: 02cc7950564aa6343a5b9b944977eb97, type: 3}
-  staminaBorder: {fileID: 2800000, guid: 94334f80d30ce1245a00e4cc1b3d75b5, type: 3}
-  maxStamina: 100
-  stamina: 100
-  recoverStamina: 0
-  doubleJump: 0
-  dodgeRollSetting:
-    canDodgeRoll: 1
-    staminaUse: 25
-    dodgeForward: {fileID: 7400000, guid: a3773715913a65445bef3a57ab86adce, type: 3}
-    dodgeLeft: {fileID: 7400004, guid: a3773715913a65445bef3a57ab86adce, type: 3}
-    dodgeRight: {fileID: 7400006, guid: a3773715913a65445bef3a57ab86adce, type: 3}
-    dodgeBack: {fileID: 7400002, guid: a3773715913a65445bef3a57ab86adce, type: 3}
-  fallingDamage:
-    enable: 1
-    minSurviveFall: 0.6
-    damageForSeconds: 40
-    surviveHeight: 0.2
-    hitEffect: {fileID: 4499541602594790, guid: 48bba1a5ca0b49b43b90ba414a78f9f0,
-      type: 3}
-  joyStick: {fileID: 0}
 --- !u!114 &1086363911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2879,12 +3049,14 @@ MonoBehaviour:
   attackPrefab: {fileID: 400000, guid: 67fe852226ef96a4bbe68da833bf9b8e, type: 3}
   notActive: 0
   useMecanim: 0
+  requiredDistanceForAttack: 2
   mecanimSetting:
     useSetTriggerAtk: 0
     triggerName: attack
   whileAttack: 0
   aimingType: 1
   freeze: 0
+  isAiming: 0
   attackSpeed: 0.15
   atkDelay1: 0.1
   attackCombo:
@@ -3263,26 +3435,6 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
---- !u!114 &1086363927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080880471}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb96c2a65a2cc814b9efe1cc581efab8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swimSpeed: 5
-  swimIdle: {fileID: 7400002, guid: 250737bd5c47262449b10be384cc1dc2, type: 3}
-  swimForward: {fileID: 7400004, guid: 250737bd5c47262449b10be384cc1dc2, type: 3}
-  swimRight: {fileID: 7400008, guid: 250737bd5c47262449b10be384cc1dc2, type: 3}
-  swimLeft: {fileID: 7400006, guid: 250737bd5c47262449b10be384cc1dc2, type: 3}
-  swimBack: {fileID: 7400022, guid: 250737bd5c47262449b10be384cc1dc2, type: 3}
-  animationSpeed: 1
-  surfaceExit: 0
 --- !u!114 &1086363929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3316,80 +3468,6 @@ MonoBehaviour:
   questProgress: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   questSlot: 0000000000000000000000000000000000000000
   useLegacyUi: 0
---- !u!114 &1086363933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080880471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2483e1f7e56b00479125f1bbe5aec1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canControl: 1
-  limitVelocityY: 5
-  bounce: 0
-  freezeGravity: 0
-  stability: 0
-  playerLandingAnim: 0
-  useFixedUpdate: 1
-  movement:
-    maxForwardSpeed: 6
-    maxSidewaysSpeed: 6
-    maxBackwardsSpeed: 4
-    slopeSpeedMultiplier:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: -90
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 90
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    maxGroundAcceleration: 80
-    maxAirAcceleration: 20
-    gravity: 20
-    maxFallSpeed: 20
-  jumping:
-    enabled: 1
-    baseHeight: 0.6
-    extraHeight: 0.6
-    perpAmount: 0
-    steepPerpAmount: 0.1
-  movingPlatform:
-    enabled: 1
-    movementTransfer: 2
-  sliding:
-    enabled: 1
-    slidingSpeed: 15
-    sidewaysControl: 1
-    speedControl: 0.4
 --- !u!114 &1086363935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3765,6 +3843,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4659681482775149065, guid: 9c61ac7e4e04f304dbd154597c64bcc1,
+        type: 3}
+      propertyPath: field of view
+      value: 25.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4659681482775149066, guid: 9c61ac7e4e04f304dbd154597c64bcc1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3819,11 +3902,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4659681482775149065, guid: 9c61ac7e4e04f304dbd154597c64bcc1,
-        type: 3}
-      propertyPath: field of view
-      value: 25.1
       objectReference: {fileID: 0}
     - target: {fileID: 4659681482775149067, guid: 9c61ac7e4e04f304dbd154597c64bcc1,
         type: 3}
@@ -4864,10 +4942,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 700
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -4936,6 +5014,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   cam: {fileID: 864816563}
+  isMoving: 0
+  pathFinderAgent: {fileID: 0}
+  enemyTargeted: 0
+  closeToEnemy: 0
+  target: {fileID: 0}
 --- !u!1 &8371272936959682792
 GameObject:
   m_ObjectHideFlags: 0
