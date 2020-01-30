@@ -45,11 +45,16 @@ public class ClickBasedMove : MonoBehaviour
                 if (target.tag == StaticTags.Enemy)
                 {
                     enemyTargeted = true;
+
+                    //if the enemy is our destination,  make sure we set the stopping distance to our offset
+                    pathFinderAgent.stoppingDistance = GetComponent<AttackTriggerC>().requiredDistanceForAttack;
                 }
                 else
                 {
                     if (target.tag != StaticTags.Enemy)
                     {
+                        //if not,  go back to regular stopping distance
+                        pathFinderAgent.stoppingDistance = 0;
                         isMoving = true;
                         NavMeshExtensions.GoToSetPosition(rayCastInfo.point, pathFinderAgent);
                         pathFinderAgent.destination = rayCastInfo.point;
