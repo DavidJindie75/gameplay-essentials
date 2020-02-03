@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FieldGoblin
       objectReference: {fileID: 0}
+    - target: {fileID: 100110, guid: 7993b745f901fe240b5628c40f19e349, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400076, guid: 7993b745f901fe240b5628c40f19e349, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.12597466
@@ -177,7 +181,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: 7993b745f901fe240b5628c40f19e349, type: 3}
       propertyPath: speed
-      value: 0
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 14300000, guid: 7993b745f901fe240b5628c40f19e349, type: 3}
+      propertyPath: m_Radius
+      value: 0.055
+      objectReference: {fileID: 0}
+    - target: {fileID: 14300000, guid: 7993b745f901fe240b5628c40f19e349, type: 3}
+      propertyPath: m_Center.z
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7993b745f901fe240b5628c40f19e349, type: 3}
@@ -248,7 +260,7 @@ MonoBehaviour:
   glowWidth: 0.4
   glowQuality: 2
   glowDownsampling: 2
-  glowHQColor: {r: 0.64, g: 1, b: 0, a: 1}
+  glowHQColor: {r: 1, g: 0, b: 0.00931406, a: 1}
   glowDithering: 1
   glowMagicNumber1: 0.75
   glowMagicNumber2: 0.5
@@ -651,6 +663,30 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 593892581}
+    - target: {fileID: 459475755, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
+      propertyPath: dodgeRollSetting.dodgeForward
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 459475755, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
+      propertyPath: dodgeRollSetting.canDodgeRoll
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 459475755, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
+      propertyPath: staminaGauge
+      value: 
+      objectReference: {fileID: 2800000, guid: 02cc7950564aa6343a5b9b944977eb97, type: 3}
+    - target: {fileID: 459475755, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
+      propertyPath: staminaBorder
+      value: 
+      objectReference: {fileID: 2800000, guid: 94334f80d30ce1245a00e4cc1b3d75b5, type: 3}
+    - target: {fileID: 11400026, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400018, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
 --- !u!1 &1259232042

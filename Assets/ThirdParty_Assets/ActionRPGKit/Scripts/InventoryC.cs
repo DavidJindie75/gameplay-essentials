@@ -695,15 +695,15 @@ public class InventoryC : MonoBehaviour {
 			menu = true;
 			Time.timeScale = 0.0f;
 			//Screen.lockCursor = false;
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
+			//Cursor.lockState = CursorLockMode.None;
+			//Cursor.visible = true;
 			ResetPosition();
 		}else if(menu){
 			menu = false;
 			Time.timeScale = 1.0f;
 			//Screen.lockCursor = true;
-			Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;
+			//Cursor.lockState = CursorLockMode.Locked;
+			//Cursor.visible = false;
 		}
 	}
 	

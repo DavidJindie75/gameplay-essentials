@@ -109,15 +109,15 @@ public class UiMasterC : MonoBehaviour {
 		if(st.activeSelf == false){
 			Time.timeScale = 0.0f;
 			//Screen.lockCursor = false;
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
+			//Cursor.lockState = CursorLockMode.None;
+			//Cursor.visible = true;
 			CloseAllMenu();
 			st.SetActive(true);
 		}else{
 			Time.timeScale = 1.0f;
 			//Screen.lockCursor = true;
-			Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;
+			//Cursor.lockState = CursorLockMode.Locked;
+			//Cursor.visible = false;
 			CloseAllMenu();
 		}
 	}
@@ -127,15 +127,15 @@ public class UiMasterC : MonoBehaviour {
 		if(inv.activeSelf == false){
 			Time.timeScale = 0.0f;
 			//Screen.lockCursor = false;
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
+			//Cursor.lockState = CursorLockMode.None;
+			//Cursor.visible = true;
 			CloseAllMenu();
 			inv.SetActive(true);
 		}else{
 			Time.timeScale = 1.0f;
 			//Screen.lockCursor = true;
-			Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;
+			//Cursor.lockState = CursorLockMode.Locked;
+			//Cursor.visible = false;
 			CloseAllMenu();
 		}
 	}
@@ -145,16 +145,16 @@ public class UiMasterC : MonoBehaviour {
 		if(sk.activeSelf == false){
 			Time.timeScale = 0.0f;
 			//Screen.lockCursor = false;
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
+			//Cursor.lockState = CursorLockMode.None;
+			//Cursor.visible = true;
 			CloseAllMenu();
 			sk.SetActive(true);
 			sk.GetComponent<SkillTreeCanvasC>().Start();
 		}else{
 			Time.timeScale = 1.0f;
 			//Screen.lockCursor = true;
-			Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;
+			//Cursor.lockState = CursorLockMode.Locked;
+			//Cursor.visible = false;
 			CloseAllMenu();
 		}
 	}
@@ -164,16 +164,16 @@ public class UiMasterC : MonoBehaviour {
 		if(qu.activeSelf == false){
 			Time.timeScale = 0.0f;
 			//Screen.lockCursor = false;
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
+			//Cursor.lockState = CursorLockMode.None;
+			//Cursor.visible = true;
 			CloseAllMenu();
 			qu.SetActive(true);
 			qu.GetComponent<QuestUiCanvasC>().UpdateQuestDetails();
 		}else{
 			Time.timeScale = 1.0f;
 			//Screen.lockCursor = true;
-			Cursor.lockState = CursorLockMode.Locked;
-			Cursor.visible = false;
+			//Cursor.lockState = CursorLockMode.Locked;
+			//Cursor.visible = false;
 			CloseAllMenu();
 		}
 	}
