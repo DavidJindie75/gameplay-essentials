@@ -25,7 +25,7 @@ public class ClickBasedMove : MonoBehaviour
     [Space(10)]
     public GameObject DestinationEffect;
     bool ClickEffectUsed;
-    float MouseUpClickEffectTimer;
+    float MouseUpClickEffectTimer = 0f;
     Vector3 LastMousePosition;
 
     public Texture2D staminaGauge;
@@ -173,22 +173,7 @@ public class ClickBasedMove : MonoBehaviour
                         pathFinderAgent.destination = rayCastInfo.point;
                         LastMousePosition = rayCastInfo.point;
 
-                        //click effects
-                        if (!ClickEffectUsed && DestinationEffect != null)
-                        {
-                            Instantiate(DestinationEffect, rayCastInfo.point + Vector3.up * 0.5f, Quaternion.identity);
-                            ClickEffectUsed = true;
-                        }
-                         
-
-                        if (Input.GetMouseButtonUp(0))
-                        {
-                            if(MouseUpClickEffectTimer > 1){Instantiate(DestinationEffect, rayCastInfo.point + Vector3.up * 0.5f, Quaternion.identity);}
-
-                            ClickEffectUsed = false;
-                            MouseUpClickEffectTimer = 0;
-                        }
-
+                        ClickEffect();// click particle system effect
 
                         if (enemyTargeted)
                             enemyTargeted = false;
@@ -228,6 +213,47 @@ public class ClickBasedMove : MonoBehaviour
 
         if (pathFinderAgent.remainingDistance <= pathFinderAgent.stoppingDistance) { isMoving = false; }
 
+    }
+
+    // click particle system effect
+    void ClickEffect()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            ClickEffectUsed = false;
+        }
+
+        if (!ClickEffectUsed)
+        {
+            Instantiate(DestinationEffect, rayCastInfo.point + Vector3.up * 0.5f, Quaternion.identity);
+            ClickEffectUsed = true;
+        }
+        
+
+
+
+
+        /*
+        //click effects
+        if (!ClickEffectUsed && DestinationEffect != null)
+        {
+            Instantiate(DestinationEffect, rayCastInfo.point + Vector3.up * 0.5f, Quaternion.identity);
+            ClickEffectUsed = true;
+        }
+
+
+        if (Input.GetKeyUp(KeyCode.Mouse0) || Input.GetMouseButtonUp(0))
+        {
+            Debug.Log("working in here");
+            if (MouseUpClickEffectTimer > 1)
+            {
+                Instantiate(DestinationEffect, rayCastInfo.point + Vector3.up * 0.5f, Quaternion.identity);
+            }
+
+            ClickEffectUsed = false;
+            MouseUpClickEffectTimer = 0;
+        }
+        */
     }
 
     void DodgeRoll_Input()
