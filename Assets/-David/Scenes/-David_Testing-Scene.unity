@@ -666,7 +666,7 @@ PrefabInstance:
     - target: {fileID: 459475755, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
       propertyPath: dodgeRollSetting.dodgeForward
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7400000, guid: 9cd7ad4e045a2524f9f6d161958413e4, type: 3}
     - target: {fileID: 459475755, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
       propertyPath: dodgeRollSetting.canDodgeRoll
       value: 1
@@ -679,6 +679,23 @@ PrefabInstance:
       propertyPath: staminaBorder
       value: 
       objectReference: {fileID: 2800000, guid: 94334f80d30ce1245a00e4cc1b3d75b5, type: 3}
+    - target: {fileID: 459475755, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
+      propertyPath: dodgeRollSetting.dodgeLeft
+      value: 
+      objectReference: {fileID: 7400004, guid: 9cd7ad4e045a2524f9f6d161958413e4, type: 3}
+    - target: {fileID: 459475755, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
+      propertyPath: dodgeRollSetting.dodgeRight
+      value: 
+      objectReference: {fileID: 7400006, guid: 9cd7ad4e045a2524f9f6d161958413e4, type: 3}
+    - target: {fileID: 459475755, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
+      propertyPath: dodgeRollSetting.dodgeBack
+      value: 
+      objectReference: {fileID: 7400002, guid: 9cd7ad4e045a2524f9f6d161958413e4, type: 3}
+    - target: {fileID: 459475755, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
+      propertyPath: DestinationEffect
+      value: 
+      objectReference: {fileID: 1597342258702392, guid: 4d9482b3d5db59844a391533b1c2d1d9,
+        type: 3}
     - target: {fileID: 11400026, guid: be8a5bca06c45364d840d7dd87d94b70, type: 3}
       propertyPath: m_Enabled
       value: 0

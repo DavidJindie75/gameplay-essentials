@@ -6,18 +6,27 @@ using UnityEngine.AI;
 public class ClickBasedMove : MonoBehaviour
 {
     //movements
-    private GameObject mainModel;
+    [Header("Movement")]
+    [Space(10)]
     public float walkSpeed = 6.0f;
     public float sprintSpeed = 12.0f;
     public bool canSprint = true;
     private bool sprint = false;
     public bool canControl = true;
     public bool unableToMove = false;
+    private GameObject mainModel;
 
     [HideInInspector]//stamina
     public bool recover = false;
     private float staminaRecover = 1.4f;
     private float useStamina = 0.04f;
+
+    [Header("Effects & Indicators")]
+    [Space(10)]
+    public GameObject DestinationEffect;
+    bool ClickEffectUsed;
+    float MouseUpClickEffectTimer;
+    Vector3 LastMousePosition;
 
     public Texture2D staminaGauge;
     public Texture2D staminaBorder;
@@ -90,6 +99,8 @@ public class ClickBasedMove : MonoBehaviour
         {
             StatusC stat = GetComponent<StatusC>();
 
+            MouseUpClickEffectTimer += Time.deltaTime;
+
             if (recover && !sprint && !dodging)
             {
                 if (recoverStamina >= staminaRecover)
@@ -160,6 +171,24 @@ public class ClickBasedMove : MonoBehaviour
                         isMoving = true;
                         NavMeshExtensions.GoToSetPosition(rayCastInfo.point, pathFinderAgent);
                         pathFinderAgent.destination = rayCastInfo.point;
+                        LastMousePosition = rayCastInfo.point;
+
+                        //click effects
+                        if (!ClickEffectUsed && DestinationEffect != null)
+                        {
+                            Instantiate(DestinationEffect, rayCastInfo.point + Vector3.up * 0.5f, Quaternion.identity);
+                            ClickEffectUsed = true;
+                        }
+                         
+
+                        if (Input.GetMouseButtonUp(0))
+                        {
+                            if(MouseUpClickEffectTimer > 1){Instantiate(DestinationEffect, rayCastInfo.point + Vector3.up * 0.5f, Quaternion.identity);}
+
+                            ClickEffectUsed = false;
+                            MouseUpClickEffectTimer = 0;
+                        }
+
 
                         if (enemyTargeted)
                             enemyTargeted = false;
