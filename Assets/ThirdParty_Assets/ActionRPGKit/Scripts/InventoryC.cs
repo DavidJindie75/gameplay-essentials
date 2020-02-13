@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class InventoryC : MonoBehaviour {
@@ -735,6 +735,17 @@ public class InventoryC : MonoBehaviour {
 			GetComponent<AttackTriggerC>().attackSpeed = dataItem.equipment[id].attackSpeed;
 			GetComponent<AttackTriggerC>().atkDelay1 = dataItem.equipment[id].attackDelay;
 			GetComponent<AttackTriggerC>().blockingAnimation = dataItem.equipment[id].blockingAnimation;
+
+            if(dataItem.equipment[id].heavyAttack != null)
+                GetComponent<AttackTriggerC>().heavyAttack = dataItem.equipment[id].heavyAttack;    
+            else
+            {
+                //Clears out previous Item's Heavy Attack reference so that the newly equipped item doesn't have
+                //the previous item's Heavy Attack.
+
+                GetComponent<AttackTriggerC>().heavyAttack = null;
+            }
+
 			GetComponent<AttackTriggerC>().canBlock = dataItem.equipment[id].canBlock;
 		}
 
@@ -777,8 +788,18 @@ public class InventoryC : MonoBehaviour {
 			//Assign Attack Speed
 			GetComponent<AttackTriggerC>().attackSpeed = dataItem.equipment[id].attackSpeed;
 			GetComponent<AttackTriggerC>().atkDelay1 = dataItem.equipment[id].attackDelay;
-			GetComponent<AttackTriggerC>().blockingAnimation = dataItem.equipment[id].blockingAnimation;
-			GetComponent<AttackTriggerC>().canBlock = dataItem.equipment[id].canBlock;
+
+            if (dataItem.equipment[id].heavyAttack != null)
+                GetComponent<AttackTriggerC>().heavyAttack = dataItem.equipment[id].heavyAttack;
+            else
+            {
+                //Clears out previous Item's Heavy Attack reference so that the newly equipped item doesn't have
+                //the previous item's Heavy Attack.
+
+                GetComponent<AttackTriggerC>().heavyAttack = null;
+            }
+
+            GetComponent<AttackTriggerC>().canBlock = dataItem.equipment[id].canBlock;
 			//Set Weapon Type ID to Mecanim Animator and Set New Idle
 			GetComponent<PlayerMecanimAnimationC>().SetWeaponType(dataItem.equipment[id].weaponType);
 			
