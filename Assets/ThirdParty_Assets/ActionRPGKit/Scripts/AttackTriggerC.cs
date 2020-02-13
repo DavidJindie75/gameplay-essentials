@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
 
@@ -24,6 +24,8 @@ public class AttackTriggerC : MonoBehaviour {
 	public Transform attackPrefab;
 	public bool notActive = false;
 	public bool useMecanim = false;
+    public bool queueHeavyAttack;
+    public bool queueLightAttack;
     public float requiredDistanceForAttack;
 
 
@@ -50,6 +52,7 @@ public class AttackTriggerC : MonoBehaviour {
 	public float atkDelay1 = 0.1f;
 
 	public AnimationClip[] attackCombo = new AnimationClip[3];
+    public AnimationClip heavyAttack;
 	public AnimationClip blockingAnimation;
 	public float attackAnimationSpeed = 1.0f;
 	public AudioClip attackSoundEffect;
@@ -58,6 +61,7 @@ public class AttackTriggerC : MonoBehaviour {
 	private AnimationClip hurt;
 
 	private bool meleefwd = false;
+    public bool toggleAimInput;
 	[HideInInspector]
 	public bool isCasting = false;
 
@@ -132,7 +136,7 @@ public class AttackTriggerC : MonoBehaviour {
 	public string requireItemName = "";
 	private StatusC stat;
 	private CharacterController controller;
-	[HideInInspector]
+	//[HideInInspector]
 	public bool onAttacking = false; // For Mecanim disable jumping animation
 
 	void Awake(){
@@ -217,18 +221,57 @@ public class AttackTriggerC : MonoBehaviour {
 		}
 	}
 
-	void FixedUpdate()
-	{
-		//if holding the rotate key
-		if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetButtonDown("Left Control"))
-		{
-			isAiming = true;
-		}
-		if(Input.GetKeyUp(KeyCode.LeftControl) || Input.GetButtonUp("Left Control")) { isAiming = false; }
-	}
+    void FixedUpdate()
+    {
 
-	void Update(){
-		if(isAiming)
+    }
+
+
+    void AimInputCheck()
+    {
+        if(toggleAimInput)
+        {
+            if (Input.GetKeyDown(KeyCode.LeftControl) && !isAiming)
+                isAiming = true;
+
+            if (Input.GetKeyDown(KeyCode.LeftControl) && isAiming)
+                isAiming = false;
+                
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.LeftControl) || Input.GetButton("Left Control"))
+                GetComponent<AttackTriggerC>().isAiming = true;
+            else
+                GetComponent<AttackTriggerC>().isAiming = false;
+        }
+    }
+
+    void Old_AimInput()
+    {
+        if (toggleAimInput)
+        {
+
+            if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetButtonDown("Left Control"))
+            {
+                GetComponent<AttackTriggerC>().isAiming = true;
+            }
+            if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetButtonUp("Left Control")) { GetComponent<AttackTriggerC>().isAiming = false; }
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.LeftControl) || Input.GetButton("Left Control"))
+                GetComponent<AttackTriggerC>().isAiming = true;
+            else
+                GetComponent<AttackTriggerC>().isAiming = false;
+        }
+    }
+
+	void Update()
+    {
+        AimInputCheck();
+        
+        if (isAiming)
 		{
 			//stop movement
 			NavMeshExtensions.StopMoving(GetComponent< ClickBasedMove>().pathFinderAgent);
@@ -281,22 +324,76 @@ public class AttackTriggerC : MonoBehaviour {
 		if(notActive){
 			return;
 		}
-		//Normal Trigger
-		if(Input.GetButton("Fire1") && Time.time > nextFire && !isCasting && !mobileMode && !skillAim
-            && GetComponent<ClickBasedMove>().closeToEnemy 
-            && GetComponent<ClickBasedMove>().pathFinderAgent.isStopped)
-        {
-			if(Time.time > (nextFire + 0.5f)){
-				c = 0;
-			}
-			//Attack Combo
-			if(attackCombo.Length >= 1){
-				StartCoroutine(AttackCombo());
-			}
-		}
 
-		//Blocking Damage
-		if(GetComponent<PlayerInputControllerC>() && canBlock && Input.GetButton("Fire2") && Time.time > nextFire && !isCasting && !skillAim && !GetComponent<StatusC>().block && !mobileMode){
+        if (queueHeavyAttack)
+        {
+            if (!GetComponent<ClickBasedMove>().closeToEnemy)
+                return;
+
+            //Queue Heavy Attack Trigger
+            if (GetComponent<ClickBasedMove>().closeToEnemy
+                   && GetComponent<ClickBasedMove>().pathFinderAgent.isStopped)
+            {
+                transform.LookAt(GetComponent<ClickBasedMove>().target.transform);
+
+                if (Time.time > (nextFire + 0.5f))
+                {
+                  c = 0;
+                }
+
+                //if (attackCombo.Length >= 1)
+                //{
+                StartCoroutine(HeavyAttack());
+                //}
+            }
+        }
+        else
+        {
+
+            if (queueHeavyAttack)
+                return;
+
+            //Normal Trigger
+            if (Input.GetButton("Fire1") && Time.time > nextFire && !isCasting && !mobileMode && !skillAim
+               && GetComponent<ClickBasedMove>().closeToEnemy
+               && GetComponent<ClickBasedMove>().pathFinderAgent.isStopped)
+            {
+                if (Time.time > (nextFire + 0.5f))
+                {
+                    c = 0;
+                }
+                //Attack Combo
+                if (attackCombo.Length >= 1)
+                {
+                    StartCoroutine(AttackCombo());
+                }
+            }
+
+            //if (queueLightAttack)
+              //  return;
+
+            //Heavy Trigger
+            if (Input.GetButton("Fire2") && Time.time > nextFire && !isCasting && !mobileMode && !skillAim
+                && GetComponent<ClickBasedMove>().closeToEnemy
+                && GetComponent<ClickBasedMove>().pathFinderAgent.isStopped
+                && heavyAttack != null
+                )
+            {
+                 if (Time.time > (nextFire + 0.5f))
+                {
+                  c = 0;
+                }
+
+                //if (attackCombo.Length >= 1)
+                //{
+                StartCoroutine(HeavyAttack());
+                //}
+            }
+
+        }
+
+        //Blocking Damage
+        /*if(GetComponent<PlayerInputControllerC>() && canBlock && Input.GetButton("Fire2") && Time.time > nextFire && !isCasting && !skillAim && !GetComponent<StatusC>().block && !mobileMode){
 			if(GetComponent<PlayerInputControllerC>().stamina > blockStamina && !GetComponent<PlayerInputControllerC>().dodging){
 				GetComponent<PlayerInputControllerC>().stamina -= blockStamina;
 				string anim = "";
@@ -308,9 +405,9 @@ public class AttackTriggerC : MonoBehaviour {
 				GetComponent<PlayerInputControllerC>().recover = true;
 				GetComponent<PlayerInputControllerC>().recoverStamina = 0.0f;
 			}
-		}
+		}*/
 
-		if(skillAim){
+        if (skillAim){
 			//Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			if(raycastAiming){
 				Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f,0.0f));
@@ -516,7 +613,110 @@ public class AttackTriggerC : MonoBehaviour {
 		}
 	}
 
-	IEnumerator AttackCombo(){
+    IEnumerator HeavyAttack()
+    {
+        float wait = 0.0f;
+
+        if (stat.dodge)
+        {
+            //yield return new WaitForSeconds(0.1f);
+            yield break;
+        }
+
+        if (requireItemId > 0)
+        {
+            bool have = GetComponent<InventoryC>().RemoveItem(requireItemId, 1);
+            if (!have)
+            {
+                print("Require " + requireItemName);
+                //yield return new WaitForSeconds(0.1f);
+                yield break;
+            }
+        }
+
+        if(useMecanim)
+        {
+            if (queueHeavyAttack)
+                queueHeavyAttack = false;
+
+            str = GetComponent<StatusC>().addAtk;
+            matk = GetComponent<StatusC>().addMatk;
+            Transform bulletShootout;
+            isCasting = true;
+            onAttacking = true;
+            // If Melee Dash
+            if (whileAttack == whileAtk.MeleeFwd)
+            {
+                GetComponent<StatusC>().canControl = false;
+                //MeleeDash();
+                StartCoroutine(MeleeDash());
+            }
+            // If Immobile
+            if (whileAttack == whileAtk.Immobile)
+            {
+                GetComponent<StatusC>().canControl = false;
+            }
+
+            //Play Sound
+
+            if (attackSoundEffect)
+            {
+                GetComponent<AudioSource>().PlayOneShot(attackSoundEffect);
+            }
+
+            if (!useMecanim)
+            {
+                mainModel.GetComponent<Animation>().PlayQueued(heavyAttack.name, QueueMode.PlayNow).speed = attackAnimationSpeed;
+                wait = mainModel.GetComponent<Animation>()[attackCombo[c].name].length;
+            }
+            else
+            {
+                //For Mecanim Animation
+                if (mainModel.GetComponent<Animator>() && mecanimSetting.useSetTriggerAtk)
+                {
+                    mainModel.GetComponent<Animator>().SetTrigger(mecanimSetting.triggerName);
+                }
+                else if (GetComponent<PlayerMecanimAnimationC>())
+                {
+                    GetComponent<PlayerMecanimAnimationC>().AttackAnimation(heavyAttack.name);
+                    float clip = GetComponent<PlayerMecanimAnimationC>().animator.GetCurrentAnimatorClipInfo(0).Length;
+                    wait = clip - 0.3f;
+                }
+            }
+
+            yield return new WaitForSeconds(atkDelay1);
+            c++;
+
+            nextFire = Time.time + attackSpeed;
+            bulletShootout = Instantiate(attackPrefab, attackPoint.transform.position, attackPoint.transform.rotation) as Transform;
+            bulletShootout.GetComponent<BulletStatusC>().Setting(str, matk, "Player", this.gameObject);
+            if (GetComponent<StatusC>().hiddenStatus.drainTouch > 0)
+            {
+                bulletShootout.GetComponent<BulletStatusC>().drainHp += GetComponent<StatusC>().hiddenStatus.drainTouch;
+            }
+            if (c >= attackCombo.Length)
+            {
+                c = 0;
+                atkDelay = true;
+                yield return new WaitForSeconds(wait);
+                atkDelay = false;
+            }
+            else
+            {
+                yield return new WaitForSeconds(attackSpeed);
+            }
+
+            isCasting = false;
+            onAttacking = false;
+
+            GetComponent<StatusC>().canControl = true;
+
+        }
+
+        yield break;
+    }
+
+    IEnumerator AttackCombo(){
 		if(c >= attackCombo.Length){
 			c = 0;
 		}
@@ -533,8 +733,12 @@ public class AttackTriggerC : MonoBehaviour {
 			}
 		}
 		float wait = 0.0f;
-		if(attackCombo[c] || useMecanim){
-			str = GetComponent<StatusC>().addAtk;
+		if(attackCombo[c] || useMecanim)
+        {
+            if (queueLightAttack)
+                queueLightAttack = false;
+
+            str = GetComponent<StatusC>().addAtk;
 			matk = GetComponent<StatusC>().addMatk;
 			Transform bulletShootout;
 			isCasting = true;
@@ -557,11 +761,14 @@ public class AttackTriggerC : MonoBehaviour {
 				GetComponent<AudioSource>().PlayOneShot(attackSoundEffect);
 			}
 
-			if(!useMecanim){
+			if(!useMecanim)
+            {
 				//For Legacy Animation
 				mainModel.GetComponent<Animation>().PlayQueued(attackCombo[c].name, QueueMode.PlayNow).speed = attackAnimationSpeed;
 				wait = mainModel.GetComponent<Animation>()[attackCombo[c].name].length;
-			}else{
+			}
+            else
+            {
 				//For Mecanim Animation
 				if(mainModel.GetComponent<Animator>() && mecanimSetting.useSetTriggerAtk){
 					//mainModel.GetComponent<Animator>().SetInteger("combo" , c);
@@ -594,7 +801,9 @@ public class AttackTriggerC : MonoBehaviour {
 			isCasting = false;
 			onAttacking = false;
 			GetComponent<StatusC>().canControl = true;
-		}else{
+		}
+        else
+        {
 			print("Please assign attack animation in Attack Combo");
 		}
 	}
@@ -631,7 +840,8 @@ public class AttackTriggerC : MonoBehaviour {
 			cost *= per;
 			cost /= 100;
 		}
-		if(GetComponent<StatusC>().mana >= cost){
+		if(GetComponent<StatusC>().mana >= cost)
+        {
 			if(skill[skillID].sendMsg != ""){
 				SendMessage(skill[skillID].sendMsg , SendMessageOptions.DontRequireReceiver);
 			}
@@ -656,8 +866,9 @@ public class AttackTriggerC : MonoBehaviour {
 					// If Immobile
 					if(skill[skillID].whileAttack == whileAtk.Immobile){
 						GetComponent<StatusC>().canControl = false;
-					}
-					if(!useMecanim){
+                        GetComponent<ClickBasedMove>().unableToMove = true;
+                    }
+                    if (!useMecanim){
 						//For Legacy Animation
 						mainModel.GetComponent<Animation>()[skill[skillID].skillAnimation.name].layer = 15;
 						mainModel.GetComponent<Animation>().PlayQueued(skill[skillID].skillAnimation.name , QueueMode.PlayNow);
@@ -729,7 +940,8 @@ public class AttackTriggerC : MonoBehaviour {
 					isCasting = false;
 					onAttacking = false;
 					meleefwd = false;
-					GetComponent<StatusC>().canControl = true;
+                    GetComponent<ClickBasedMove>().unableToMove = false;
+                    GetComponent<StatusC>().canControl = true;
 				}
 			}else{
 				print("Please assign skill animation in Skill Animation");
