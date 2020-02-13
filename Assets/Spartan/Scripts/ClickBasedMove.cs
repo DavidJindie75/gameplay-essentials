@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,6 +14,7 @@ public class ClickBasedMove : MonoBehaviour
     private bool sprint = false;
     public bool canControl = true;
     public bool unableToMove = false;
+    public bool wasMoving;
     private GameObject mainModel;
 
     [HideInInspector]//stamina
@@ -45,6 +46,7 @@ public class ClickBasedMove : MonoBehaviour
     public NavMeshAgent pathFinderAgent;
     public bool enemyTargeted;
     public bool closeToEnemy;
+    public bool dontRepeat;
     public GameObject target;
 
     Ray theRay;
@@ -89,8 +91,81 @@ public class ClickBasedMove : MonoBehaviour
     void FixedUpdate()
     {
         New_Input();
+        FreezeMovement();
+        RightClickInput();
         CloseToEnemyCheck();
         DodgeRoll_Input();
+    }
+
+    void FreezeMovement()
+    {
+        if (unableToMove)
+        {
+            if (isMoving)
+            {
+                NavMeshExtensions.StopMoving(GetComponent<ClickBasedMove>().pathFinderAgent);
+                wasMoving = true;
+            }
+        }
+        else
+        {
+            if (wasMoving)
+            {
+                wasMoving = false;
+            }
+        }
+    }
+
+    void RightClickInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse1) || Input.GetMouseButton(1))
+        {
+            theRay = cam.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(theRay, out rayCastInfo, 1000f))
+            {
+                target = rayCastInfo.collider.gameObject;
+
+                if (target.tag == StaticTags.Enemy)
+                {
+                    enemyTargeted = true;
+
+                    //if the enemy is our destination,  make sure we set the stopping distance to our offset
+                    pathFinderAgent.stoppingDistance = GetComponent<AttackTriggerC>().requiredDistanceForAttack;
+                }
+                else
+                {
+                    if (target.tag != StaticTags.Enemy)
+                    {
+                        if (enemyTargeted)
+                            enemyTargeted = false;
+
+                        if (closeToEnemy)
+                            closeToEnemy = false;
+                    }
+                    else
+                    {
+                        isMoving = false;
+                        NavMeshExtensions.StopAgent(pathFinderAgent);
+                    }
+                }
+
+            }
+
+        }
+
+        if (enemyTargeted)
+        {
+            MoveToAttackHeavyAttack();
+        }
+
+        if (pathFinderAgent.remainingDistance <= pathFinderAgent.stoppingDistance)
+            NavMeshExtensions.StopAgent(pathFinderAgent);
+        else
+            NavMeshExtensions.ResumeAgent(pathFinderAgent);
+
+        if (pathFinderAgent.remainingDistance <= pathFinderAgent.stoppingDistance) { isMoving = false; }
+
     }
 
     void New_Input()
@@ -157,6 +232,8 @@ public class ClickBasedMove : MonoBehaviour
 
                 if (target.tag == StaticTags.Enemy)
                 {
+
+
                     enemyTargeted = true;
 
                     //if the enemy is our destination,  make sure we set the stopping distance to our offset
@@ -174,6 +251,12 @@ public class ClickBasedMove : MonoBehaviour
                         LastMousePosition = rayCastInfo.point;
 
                         ClickEffect();// click particle system effect
+
+                        if (GetComponent<AttackTriggerC>().queueLightAttack)
+                            GetComponent<AttackTriggerC>().queueLightAttack = false;
+
+                        if (dontRepeat)
+                            dontRepeat = false;
 
                         if (enemyTargeted)
                             enemyTargeted = false;
@@ -314,33 +397,86 @@ public class ClickBasedMove : MonoBehaviour
 
     void MoveToAttack()
     {
+        if(target == null)
+        {
+            if (enemyTargeted)
+                enemyTargeted = false;
+
+            if (closeToEnemy)
+                closeToEnemy = false;
+
+            return;
+        }
+
         pathFinderAgent.destination = target.transform.position;
 
         if (pathFinderAgent.remainingDistance > GetComponent<AttackTriggerC>().requiredDistanceForAttack && !closeToEnemy)
         {
             isMoving = true;
+
+            if (!dontRepeat)
+            {
+                GetComponent<AttackTriggerC>().queueLightAttack = true;
+                dontRepeat = true;
+            }
+
             NavMeshExtensions.ResumeAgent(pathFinderAgent);
         }
         else if (pathFinderAgent.remainingDistance <= GetComponent<AttackTriggerC>().requiredDistanceForAttack && closeToEnemy)
         {
             isMoving = false;
             transform.LookAt(target.transform);
-            Vector3 attackDirection = target.transform.position - transform.position;
+        }
+    }
+
+    void MoveToAttackHeavyAttack()
+    {
+        if (target == null)
+        {
+            if (enemyTargeted)
+                enemyTargeted = false;
+
+            if (closeToEnemy)
+                closeToEnemy = false;
+
+            return;
+        }
+
+        pathFinderAgent.destination = target.transform.position;
+
+        if (pathFinderAgent.remainingDistance > GetComponent<AttackTriggerC>().requiredDistanceForAttack && !closeToEnemy)
+        {
+            if (!dontRepeat)
+            {
+                GetComponent<AttackTriggerC>().queueHeavyAttack = true;
+                dontRepeat = true;
+            }
+
+            isMoving = true;
+            NavMeshExtensions.ResumeAgent(pathFinderAgent);
+        }
+        else if (pathFinderAgent.remainingDistance <= GetComponent<AttackTriggerC>().requiredDistanceForAttack && closeToEnemy)
+        {
+           // if(GetComponent<AttackTriggerC>().queueHeavyAttack)
+             //   GetComponent<AttackTriggerC>().queueHeavyAttack = false;
+
+            isMoving = false;
+            transform.LookAt(target.transform);
         }
     }
 
     void CloseToEnemyCheck()
     {
-        if (!enemyTargeted)
-            return;
-
-        if (pathFinderAgent.remainingDistance > GetComponent<AttackTriggerC>().requiredDistanceForAttack)
+        if (enemyTargeted)
         {
-            closeToEnemy = false;
-        }
-        else
-        {
-            closeToEnemy = true;
+            if (pathFinderAgent.remainingDistance > GetComponent<AttackTriggerC>().requiredDistanceForAttack)
+            {
+                closeToEnemy = false;
+            }
+            else
+            {
+                closeToEnemy = true;
+            }
         }
     }
 
