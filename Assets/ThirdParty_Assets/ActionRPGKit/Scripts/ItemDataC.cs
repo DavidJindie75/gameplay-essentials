@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -58,6 +58,7 @@ public class ItemDataC : MonoBehaviour {
 		//Ignore if the equipment type is not weapons
 		public GameObject attackPrefab;
 		public AnimationClip[] attackCombo = new AnimationClip[3];
+        public AnimationClip heavyAttack;
 		public AnimationClip idleAnimation;
 		public AnimationClip runAnimation;
 		public AnimationClip rightAnimation;
